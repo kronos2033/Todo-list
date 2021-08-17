@@ -1,15 +1,19 @@
 import React from "react";
 import "./TodoListItem.css";
+import { useState } from "react";
+
 
 export default function TodoListItem  ({ label, important = false }) {
+  const [done, setDone] = useState(false)
   const style = {
     color: important ? "steelblue" : "black",
     fontWeight: important ? "bold" : "normal",
   };
-
+  
+  const todoListItemClick = () => setDone(!done)
   return (
-    <span className="todo-list-item">
-      <span className="todo-list-item-label" style={style}>
+    <span className={`todo-list-item ${done && 'done'}`}>
+      <span className="todo-list-item-label" style={style} onClick={todoListItemClick}>
         {label}
       </span>
 
