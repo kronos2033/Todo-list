@@ -6,25 +6,25 @@ import ItemStatusFilter from "../ItemStatusFilter/ItemStatusFilter";
 import { useState } from "react";
 
 import "./App.css";
-import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from "react-dom";
 
 const App = () => {
-  let maxId = 10;
+  let maxId = 100;
   const createItem = (label) => {
     return {
       label,
       important: false,
       done: false,
-      id:maxId++
+      id: ++maxId
     }
   }
-
   const [todoData, setTodoData] = useState([
     createItem("Drink Coffee"),
     createItem("Make Awesome App"),
     createItem("Have a lunch"),
   ]);
 
+const todoLength = todoData.filter(item=>item.done === false).length
+const todoDones = todoData.filter(item=>item.done === true).length
   const handleDeleteItem = (id) => {
     setTodoData((todoData) => {
       const idx = todoData.findIndex((el) => el.id === id);
@@ -61,9 +61,13 @@ const App = () => {
         }
       )}
 
+      const handleSearch = (word) => {
+        todoData.filter
+      }
+
   return (
     <div className="todo-app">
-      <Header toDo={1} done={3} />
+      <Header toDo={todoLength} done={todoDones} />
       <div className="top-panel d-flex">
         <SearchPanel />
         <ItemStatusFilter />

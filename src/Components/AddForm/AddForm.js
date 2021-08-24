@@ -1,14 +1,21 @@
 import "./AddForm.css";
+import { useState } from "react";
 
-export default function AddForm({ handleAdd}) {
+export default function AddForm({ handleAdd }) {
+  const [value, setValue] = useState();
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    handleAdd(value);
+  };
   return (
-    <div className="add-form">
-      <button
-        className="add-form__btn btn-outline-seconadry"
-        onClick={handleAdd}
-      >
-        Добавить
-      </button>
-    </div>
+    <form className="add-form item-add-form d-flex" onSubmit={onSubmit}>
+      <input className="form-control" type="text" onChange={handleChange} />
+      <button className="add-form__btn btn-outline-seconadry">Добавить</button>
+    </form>
   );
 }

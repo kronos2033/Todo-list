@@ -31,9 +31,7 @@ export default function TodoList({
         })}
       </ul>
       <AddForm
-        handleAdd={() => {
-          handleAdd("New Item");
-        }}
+        handleAdd={handleAdd}
       />
     </div>
   );
