@@ -6,13 +6,23 @@ import ItemStatusFilter from "../ItemStatusFilter/ItemStatusFilter";
 import { useState } from "react";
 
 import "./App.css";
+import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from "react-dom";
 
 const App = () => {
   let maxId = 10;
+  const createItem = (label) => {
+    return {
+      label,
+      important: false,
+      done: false,
+      id:maxId++
+    }
+  }
+
   const [todoData, setTodoData] = useState([
-    { label: "Drink Coffee", important: false, id: 1 },
-    { label: "Make Awesome App", important: true, id: 2 },
-    { label: "Have a lunch", important: false, id: 3 },
+    createItem("Drink Coffee"),
+    createItem("Make Awesome App"),
+    createItem("Have a lunch"),
   ]);
 
   const handleDeleteItem = (id) => {
@@ -24,22 +34,33 @@ const App = () => {
   };
 
   const handleAddItem = (newItemText) => {
+    const newItem = createItem(newItemText);
     setTodoData((todoData) => {
-      
-      const newItem = {
-        label: newItemText,
-        important: false,
-        id: maxId++,
-      };
-      const items = [
-        ...todoData,
-        newItem,
-      ];
-      console.log(items)
-
+      const items = [...todoData, newItem];
       return items;
     });
   };
+
+    const toggleImportant = (id) => {
+      setTodoData(todoData => {
+        const idx=todoData.findIndex((el) => el.id === id);
+        const oldElement=todoData[idx]
+        const newElement={...oldElement, important: !oldElement.important}
+        const items=[...todoData.slice(0, idx),newElement, ...todoData.slice(idx + 1)];
+        return items
+        }
+      )}
+
+    const toggleDone = (id) => {
+      setTodoData(todoData => {
+        const idx=todoData.findIndex((el) => el.id === id);
+        const oldElement=todoData[idx]
+        const newElement={...oldElement, done: !oldElement.done}
+        const items=[...todoData.slice(0, idx),newElement, ...todoData.slice(idx + 1)];
+        return items
+        }
+      )}
+
   return (
     <div className="todo-app">
       <Header toDo={1} done={3} />
@@ -51,6 +72,8 @@ const App = () => {
         todos={todoData}
         handleDelete={handleDeleteItem}
         handleAdd={handleAddItem}
+        toggleImportant={toggleImportant}
+        toggleDone={toggleDone}
       />
     </div>
   );
