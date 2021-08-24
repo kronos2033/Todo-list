@@ -1,0 +1,13 @@
+.add-form {
+    margin-top: 2em;
+    text-align: center;
+}
+
+.add-form__btn {
+    border-radius: 5px;
+    outline: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
